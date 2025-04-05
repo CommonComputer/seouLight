@@ -13,7 +13,7 @@ interface FormValues {
   message: string;
 }
 
-interface ChatInputProps {}
+type ChatInputProps = Record<string, never>;
 
 export default function ChatInput() {
   const { register, handleSubmit, reset, watch } = useForm<FormValues>();
@@ -208,12 +208,12 @@ export default function ChatInput() {
         true
       );
       abortControllerRef.current = null;
-    } catch (error: any) {
+    } catch (error: unknown) {
       // Error logging (for debugging)
       console.error("Error:", error);
 
       // Skip if request was canceled before starting
-      if (error.name === "AbortError") {
+      if (error instanceof Error && error.name === "AbortError") {
         // Handle canceled message
         await handleMessageAction(
           "Message transmission canceled.",
@@ -224,8 +224,10 @@ export default function ChatInput() {
       } else {
         // Other network errors
         console.error("Response streaming error:", error);
+        const errorMessage =
+          error instanceof Error ? error.message : "Unknown error";
         await handleMessageAction(
-          `An error occurred: ${error.message || "Unknown error"}`,
+          `An error occurred: ${errorMessage}`,
           Sender.BOT,
           messageId,
           true
