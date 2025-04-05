@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/chat-sse",
+      "destination": "http://101.202.37.19:3000/api/chat-sse"
+    }
+  ]
+}
