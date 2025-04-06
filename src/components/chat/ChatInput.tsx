@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { useRouter } from "next/navigation";
 
 import StopIcon from "@/icons/StopIcon";
