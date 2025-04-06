@@ -46,9 +46,8 @@ export default function ChatClient() {
           setIsStreaming(true);
 
           // Generate automatic response
+          const messageId = `bot-${Date.now() + 100}`;
           try {
-            const messageId = `bot-${Date.now() + 100}`;
-
             // Create initial empty message
             await handleMessageAction("", Sender.BOT, messageId, false);
 
@@ -210,6 +209,12 @@ export default function ChatClient() {
               setIsStreaming(false);
             }
           } catch (error) {
+            await handleMessageAction(
+              "There was a problem connecting to the server.",
+              Sender.BOT,
+              messageId,
+              true
+            );
             console.error("Error generating response:", error);
             setIsLoading(false);
             setIsStreaming(false);
