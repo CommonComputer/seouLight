@@ -80,7 +80,7 @@ export default function ChatInput() {
       ];
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/chat-sse`,
+        `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/payment`,
         {
           method: "POST",
           headers: {

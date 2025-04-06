@@ -24,7 +24,7 @@ export default function ChatMessages({ messages }: ChatMessagesProps) {
     <div className="flex flex-1 flex-col items-center justify-start overflow-y-auto p-5">
       <div className="flex w-full flex-col gap-5">
         {messages.map((msg, index) => (
-          <ChatMessage key={index} message={msg} />
+          <ChatMessage key={index} message={msg} index={index} />
         ))}
       </div>
       {isLoading && (

@@ -8,12 +8,13 @@ import { Sender } from "@/types/MessageType";
 
 interface ChatMessageProps {
   message: any;
+  index: number;
 }
 
-export default function ChatMessage({ message }: ChatMessageProps) {
+export default function ChatMessage({ message, index }: ChatMessageProps) {
   if (message.sender === Sender.USER || message.contents?.content.length > 0) {
     if (message.sender !== Sender.USER) {
-      return <BotMessage message={message} />;
+      return <BotMessage message={message} index={index} />;
     } else {
       return <UserMessage message={message} />;
     }
