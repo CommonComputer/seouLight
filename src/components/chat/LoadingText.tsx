@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 function LoadingText() {
-  const texts = ["입력중.", "입력중..", "입력중..."];
+  const texts = ["typing...", "typing..", "typing..."];
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
