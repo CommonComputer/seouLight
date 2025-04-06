@@ -262,7 +262,7 @@ export default function ChatInput() {
       if (typeof window !== "undefined") {
         sessionStorage.setItem("chatInput", message);
       }
-      router.push("/chat");
+      handleSubmit(onSubmit)();
     }
   };
 

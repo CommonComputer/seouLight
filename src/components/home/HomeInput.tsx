@@ -6,6 +6,7 @@ import Image from "next/image";
 
 import UpArrowIcon from "@/icons/UpArrowIcon";
 import { useRouter } from "next/navigation";
+import useChatStatus from "@/stores/chatStatus";
 
 interface FormValues {
   message: string;
@@ -14,6 +15,10 @@ interface FormValues {
 export default function HomeInput() {
   const { register, handleSubmit, watch } = useForm<FormValues>();
   const router = useRouter();
+  const { isLoading, isStreaming } = useChatStatus((state) => ({
+    isLoading: state.isLoading,
+    isStreaming: state.isStreaming
+  }));
 
   const message = watch("message") || "";
 
@@ -43,7 +48,14 @@ export default function HomeInput() {
           placeholder="Ask anything. I'll light the way."
           {...register("message")}
           onKeyDown={(e) => {
-            if (e.key === "Enter") {
+            if (
+              e.key === "Enter" &&
+              !isLoading &&
+              !isStreaming &&
+              message.trim()
+            ) {
+              sessionStorage.setItem("chatInput", message);
+              router.push("/chat");
               handleSubmit(onSubmit)();
             }
           }}
@@ -55,11 +67,11 @@ export default function HomeInput() {
               : "bg-[#e8e7e6] text-gray-500"
           }`}
           onClick={() => {
-            // Save input message to sessionStorage
-            sessionStorage.setItem("chatInput", message);
-            // Navigate to /chat
-            router.push("/chat");
-            handleSubmit(onSubmit);
+            if (message.length > 0) {
+              sessionStorage.setItem("chatInput", message);
+              router.push("/chat");
+              handleSubmit(onSubmit);
+            }
           }}
         >
           {message.trim() ? (
