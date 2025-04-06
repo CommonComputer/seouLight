@@ -20,9 +20,6 @@ export default function WormholeConnectComponent() {
       Sepolia: process.env.NEXT_PUBLIC_ETH_RPC,
       Ethereum: process.env.NEXT_PUBLIC_ETH_RPC,
       Solana: process.env.NEXT_PUBLIC_SOL_RPC
-    },
-    ui: {
-      title: "ArbitUumSepoliaI CoBasenepnei TS Demo"
     }
   };
 
