@@ -2,6 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 
 import StopIcon from "@/icons/StopIcon";
 import UpArrowIcon from "@/icons/UpArrowIcon";
@@ -29,6 +30,8 @@ export default function ChatInput() {
   const { handleMessageAction } = useChatContext();
 
   const abortControllerRef = useRef<AbortController | null>(null);
+
+  const router = useRouter();
 
   const onSubmit = async (data: FormValues) => {
     // 이미 메시지를 처리 중이면 중복 제출 방지
@@ -247,6 +250,22 @@ export default function ChatInput() {
     abortControllerRef.current = null;
   };
 
+  const handleButtonClick = (e: React.MouseEvent) => {
+    if (isStreaming) {
+      e.preventDefault();
+      stopStreaming();
+      setIsLoading(false);
+      setIsStreaming(false);
+    } else if (message.trim()) {
+      e.preventDefault();
+      // Check for browser environment before using sessionStorage
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem("chatInput", message);
+      }
+      router.push("/chat");
+    }
+  };
+
   return (
     <div className="sticky bottom-0 z-10 w-full bg-[linear-gradient(to_top,_#f9f7f4_50%,_transparent_50%)] px-3 pb-3 pt-0">
       <form onSubmit={handleSubmit(onSubmit)} className="relative">
@@ -280,14 +299,7 @@ export default function ChatInput() {
                 ? "bg-[#e8e7e6] text-gray-500"
                 : "bg-[#363534] hover:bg-gray-800"
           }`}
-          onClick={(e) => {
-            if (isStreaming) {
-              e.preventDefault();
-              stopStreaming();
-              setIsLoading(false);
-              setIsStreaming(false);
-            }
-          }}
+          onClick={handleButtonClick}
         >
           {isStreaming ? (
             <StopIcon color="white" />
