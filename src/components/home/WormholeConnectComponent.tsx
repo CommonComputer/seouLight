@@ -4,8 +4,6 @@ import WormholeConnect, {
   WormholeConnectConfig,
   WormholeConnectTheme
 } from "@wormhole-foundation/wormhole-connect";
-import { wormhole } from "@wormhole-foundation/sdk";
-import solana from "@wormhole-foundation/sdk/solana";
 
 export default function WormholeConnectComponent() {
   const config: WormholeConnectConfig = {
