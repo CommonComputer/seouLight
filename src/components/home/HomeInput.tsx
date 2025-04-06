@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import Image from "next/image";
 
 import UpArrowIcon from "@/icons/UpArrowIcon";
+import { useRouter } from "next/navigation";
 
 interface FormValues {
   message: string;
@@ -12,6 +13,8 @@ interface FormValues {
 
 export default function HomeInput() {
   const { register, handleSubmit, watch } = useForm<FormValues>();
+  const router = useRouter();
+
   const message = watch("message") || "";
 
   const onSubmit = (data: FormValues) => {
@@ -51,7 +54,13 @@ export default function HomeInput() {
               ? "bg-[#363534] hover:bg-gray-800"
               : "bg-[#e8e7e6] text-gray-500"
           }`}
-          onClick={handleSubmit(onSubmit)}
+          onClick={() => {
+            // Save input message to sessionStorage
+            sessionStorage.setItem("chatInput", message);
+            // Navigate to /chat
+            router.push("/chat");
+            handleSubmit(onSubmit);
+          }}
         >
           {message.trim() ? (
             <UpArrowIcon color="#FFF" />

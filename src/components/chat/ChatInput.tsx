@@ -134,10 +134,12 @@ export default function ChatInput() {
               // Extract content based on server response structure
               const content = eventData.content || "";
 
-              // Handle "Echo:" response
-              if (content.startsWith("Echo:")) {
-                // Extract user query (after "Echo:")
-                const userQuery = content.substring(6).trim();
+              // Skip responses with "general_recommendation" or that start with "Echo:"
+              if (
+                content === "general_recommendation" ||
+                content.startsWith("Echo:")
+              ) {
+                continue; // Skip this message - don't display or add to messages
               }
 
               // Process content if not empty
