@@ -5,7 +5,7 @@ import WormholeConnectComponent from "@/components/home/WormholeConnectComponent
 
 export default function HomePage() {
   return (
-    <div className="flex h-dvh w-full flex-col items-center overflow-hidden transition-colors duration-500">
+    <div className="flex h-full w-full flex-col items-center overflow-hidden transition-colors duration-500">
       <main className="mb-14 flex w-full max-w-md flex-1 flex-col items-center p-5">
         <HomeInput />
         <div className="mb-4 mt-8 w-full max-w-md text-left">
